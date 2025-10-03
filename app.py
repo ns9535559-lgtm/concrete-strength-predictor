@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
+import joblib as jb
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
@@ -125,5 +125,6 @@ if st.button("Predict Compressive Strength"):
 # Footer
 st.markdown("---")
 st.markdown("<div style='text-align: center;'>© 2025 Ranti-Owoeye Victor | Powered by Machine Learning & Streamlit 🚀</div>", unsafe_allow_html=True)
+
 
 
