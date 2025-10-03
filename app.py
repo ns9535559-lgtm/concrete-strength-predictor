@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
+import joblib as jb
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
@@ -32,10 +32,10 @@ selected_model = model_dict[selected_model_name]
 st.subheader("Input Concrete Mix Details")
 
 cement = st.number_input("Cement (kg/m³)", 102.0, 540.0, 320.0, step=10.0)
-slag = st.number_input("Blast Furnace Slag (kg/m³)", 0.0, 360.0, 0.0, step=10.0)
+#slag = st.number_input("Blast Furnace Slag (kg/m³)", 0.0, 360.0, 0.0, step=10.0)
 fly_ash = st.number_input("Fly Ash (kg/m³)", 0.0, 200.0, 0.0, step=10.0)
 water = st.number_input("Water (kg/m³)", 120.0, 250.0, 160.0, step=5.0)
-superplasticizer = st.number_input("Superplasticizer (kg/m³)", 0.0, 32.0, 0.0, step=1.0)
+#superplasticizer = st.number_input("Superplasticizer (kg/m³)", 0.0, 32.0, 0.0, step=1.0)
 coarse_agg = st.number_input("Coarse Aggregate (kg/m³)", 800.0, 1150.0, 1000.0, step=10.0)
 fine_agg = st.number_input("Fine Aggregate (kg/m³)", 550.0, 1000.0, 800.0, step=10.0)
 age = st.number_input("Age (days)", 1, 365, 28, step=1)
@@ -47,26 +47,26 @@ st.markdown(f"**Water–Cement Ratio:** {w_c_ratio:.2f}")
 # Collect input into dictionary
 user_input = {
     'Cement': cement,
-    'Blast Furnace Slag': slag,
+    #'Blast Furnace Slag': slag,
     'Fly Ash': fly_ash,
     'Water': water,
-    'Superplasticizer': superplasticizer,
+    #'Superplasticizer': superplasticizer,
     'Coarse Aggregate': coarse_agg,
     'Fine Aggregate': fine_agg,
     'Age': age
 }
 
 # Correct column order & names (must match training)
-feature_names = ['cement', 'slag', 'flyash', 'water',
-                 'superplasticizer', 'coarseaggregate',
+feature_names = ['cement', 'flyash', 'water',
+                 'coarseaggregate',
                  'fineaggregate', 'age']
 
 # --- Prediction ---
 if st.button("Predict Compressive Strength"):
     # Rebuild input DataFrame with current values
     input_df = pd.DataFrame([[
-        cement, slag, fly_ash, water,
-        superplasticizer, coarse_agg, fine_agg, age
+        cement, fly_ash, water,
+     coarse_agg, fine_agg, age
     ]], columns=feature_names)
 
     input_scaled = scaler.transform(input_df)
@@ -125,5 +125,6 @@ if st.button("Predict Compressive Strength"):
 # Footer
 st.markdown("---")
 st.markdown("<div style='text-align: center;'>© 2025 Ranti-Owoeye Victor | Powered by Machine Learning & Streamlit 🚀</div>", unsafe_allow_html=True)
+
 
 
